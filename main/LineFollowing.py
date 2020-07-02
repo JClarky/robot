@@ -39,7 +39,11 @@ def image():
     lines = [0, 0, 0]
     forward_line = 0
 
-    # edges for split images
+    left = False
+    middle = False
+    right = False
+
+    # Lines for split images
     for f in range(0, 3):
         i = img_split[f]
         # Add gray scale effect
@@ -62,14 +66,27 @@ def image():
                 cv2.line(i, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
                 cv2.line(i, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
                 cv2.drawContours(i, contours, -1, (0, 255, 0), 1) # Draw the lines
-                if f == 1:
+
+                if f == 0:
+                    left = True
+                elif f == 1:
                     forward_line = cx
+                    middle = True
+                else:
+                    right = True
             else:
                 pass
         except:
             print("failure")
-
-    # Add gray scale effect
+if left:
+    # left turn 90 degrees
+elif middle:
+    # go straight
+elif right:
+    # turn right
+else:
+    # no line :^(
+    '''# Add gray scale effect
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Add blur effect
     blurred = cv2.GaussianBlur(gray, (9, 9), 0)
@@ -91,7 +108,7 @@ def image():
         else:
             return('no')
     except:
-        print("failure")
+        print("failure")'''
 
     # Captured images in frames
     #cv2.imshow('raw_video', img)
@@ -101,18 +118,34 @@ def image():
     #cv2.imshow('mid', mid_img)
     #cv2.imshow('right', right_img)
 
-    # Figure out robot direction
-    center_pixel = img_width/4 # Find center x pixel
-    print(forward_line)
-    if forward_line > center_pixel:
-        if forward_line-center_pixel > turning_margin:
-            return('right')
-    elif forward_line < 10:
-        return('no')
-    else:
-        if center_pixel-forward_line > turning_margin:
-            return('left')
+    # Figure out robot commands to send
 
+    if left:
+        # left turn 90 degrees
+        return('left')
+    elif middle:
+        # go straight/asjust straight angle
+        center_pixel = img_width/4 # Find center x pixel
+        print(forward_line)
+        if forward_line > center_pixel:
+            if forward_line-center_pixel > turning_margin:
+                return('slight_right')
+        else:
+            if center_pixel-forward_line > turning_margin:
+                return('slight_left')
+    elif right:
+        # turn right
+        return('right')
+    else:
+        # no line :^(
+        return("no")
+
+
+###########
+###########
+# MAIN LOOP
+###########
+###########
 Core.run = False
 Core.move(50, 50)
 
@@ -121,9 +154,15 @@ while True:
     command = image()
     if command == 'left':
         print('left')
-        Core.move(70, 80)
+        Core.left_turn()
     elif command == 'right':
         print('right')
+        Core.right_turn()
+    elif command == 'slight_left':
+        print('slight left')
+        Core.move(50, 100)
+    elif command == 'slight_right':
+        print('slight right')
         Core.move(100, 50)
     elif command == 'no':
         print("Find line")
