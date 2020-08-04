@@ -32,6 +32,8 @@ led_state = False
 GPIO.setup(led_pin, GPIO.OUT)
 GPIO.output(led_pin, 0)
 
+threshold = 10
+
 def move(l, r):
     global threshold
     global lpf, lpb, rpf, rpb
