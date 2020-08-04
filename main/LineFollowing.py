@@ -78,67 +78,71 @@ def image():
                 pass
         except:
             print("failure")
-if left:
-    # left turn 90 degrees
-elif middle:
-    # go straight
-elif right:
-    # turn right
-else:
-    # no line :^(
-    '''# Add gray scale effect
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # Add blur effect
-    blurred = cv2.GaussianBlur(gray, (9, 9), 0)
-    # Add threshold effect
-    rt, threshold = cv2.threshold(blurred, gray_threshold_min, gray_threshold_max, cv2.THRESH_BINARY_INV)
-    # Detect lines of the image
-    contours, hierarchy = cv2.findContours(threshold.copy(), 1, cv2.CHAIN_APPROX_NONE)
-
-    try:
-        # If there are any lines
-        if len(contours) > 0:
-            c = max(contours, key=cv2.contourArea) # Find contour with biggest area
-            M = cv2.moments(c) # Center of that contour
-            cx = int(M['m10'] / M['m00']) # X coordiantes contour
-            cy = int(M['m01'] / M['m00']) # Y coordiantes contour
-            cv2.line(img, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
-            cv2.line(img, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
-            cv2.drawContours(img, contours, -1, (0, 255, 0), 1) # Draw the lines
-        else:
-            return('no')
-    except:
-        print("failure")'''
-
-    # Captured images in frames
-    #cv2.imshow('raw_video', img)
-    #cv2.imshow('gray_scale', gray)
-    #cv2.imshow('threshold', threshold)
-    #cv2.imshow('left', left_img)
-    #cv2.imshow('mid', mid_img)
-    #cv2.imshow('right', right_img)
-
-    # Figure out robot commands to send
-
     if left:
         # left turn 90 degrees
-        return('left')
+        pass
     elif middle:
-        # go straight/asjust straight angle
-        center_pixel = img_width/4 # Find center x pixel
-        print(forward_line)
-        if forward_line > center_pixel:
-            if forward_line-center_pixel > turning_margin:
-                return('slight_right')
-        else:
-            if center_pixel-forward_line > turning_margin:
-                return('slight_left')
+        # go straight
+        pass
     elif right:
         # turn right
-        return('right')
+        pass
     else:
         # no line :^(
-        return("no")
+        pass
+        '''# Add gray scale effect
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # Add blur effect
+        blurred = cv2.GaussianBlur(gray, (9, 9), 0)
+        # Add threshold effect
+        rt, threshold = cv2.threshold(blurred, gray_threshold_min, gray_threshold_max, cv2.THRESH_BINARY_INV)
+        # Detect lines of the image
+        contours, hierarchy = cv2.findContours(threshold.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+        try:
+            # If there are any lines
+            if len(contours) > 0:
+                c = max(contours, key=cv2.contourArea) # Find contour with biggest area
+                M = cv2.moments(c) # Center of that contour
+                cx = int(M['m10'] / M['m00']) # X coordiantes contour
+                cy = int(M['m01'] / M['m00']) # Y coordiantes contour
+                cv2.line(img, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
+                cv2.line(img, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
+                cv2.drawContours(img, contours, -1, (0, 255, 0), 1) # Draw the lines
+            else:
+                return('no')
+        except:
+            print("failure")'''
+
+        # Captured images in frames
+        #cv2.imshow('raw_video', img)
+        #cv2.imshow('gray_scale', gray)
+        #cv2.imshow('threshold', threshold)
+        #cv2.imshow('left', left_img)
+        #cv2.imshow('mid', mid_img)
+        #cv2.imshow('right', right_img)
+
+        # Figure out robot commands to send
+
+        if left:
+            # left turn 90 degrees
+            return('left')
+        elif middle:
+            # go straight/asjust straight angle
+            center_pixel = img_width/4 # Find center x pixel
+            print(forward_line)
+            if forward_line > center_pixel:
+                if forward_line-center_pixel > turning_margin:
+                    return('slight_right')
+            else:
+                if center_pixel-forward_line > turning_margin:
+                    return('slight_left')
+        elif right:
+            # turn right
+            return('right')
+        else:
+            # no line :^(
+            return("no")
 
 
 ###########
