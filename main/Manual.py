@@ -1,5 +1,6 @@
 from evdev import InputDevice, categorize, ecodes
 import Core
+import time
 
 ########## Controller Variables
 threshold = 5
