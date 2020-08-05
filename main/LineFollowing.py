@@ -126,6 +126,7 @@ def image():
 
     if left:
         # left turn 90 degrees
+        print("here at left turn")
         return('left')
     elif middle:
         # go straight/asjust straight angle
@@ -154,7 +155,7 @@ Core.run = False
 Core.move(50, 50)
 
 while True:
-    time.sleep(0.1)
+    time.sleep(0.3)
     command = image()
     if command == 'left':
         print('left')
