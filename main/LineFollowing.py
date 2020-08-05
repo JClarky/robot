@@ -45,6 +45,7 @@ def image():
     right = False
 
     # Lines for split images
+    temp = []
     for f in range(0, 3):
         i = img_split[f]
         # Add gray scale effect
@@ -79,15 +80,20 @@ def image():
                 pass
         except:
             print("failure")
+            temp.append(i)
 
     # Captured images in frames
-    cv2.imshow('raw_video', img)
+    #cv2.imshow('raw_video', img)
     #cv2.imshow('gray_scale', gray)
     #cv2.imshow('threshold', threshold)
     #cv2.imshow('left', left_img)
     #cv2.imshow('mid', mid_img)
     #cv2.imshow('right', right_img)
-    cv2.waitKey()
+
+    for g in temp:
+        cv2.imshow('right', h)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        pass
 
     # Figure out robot commands to send
 
