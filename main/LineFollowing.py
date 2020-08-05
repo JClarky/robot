@@ -87,6 +87,7 @@ def image():
     #cv2.imshow('left', left_img)
     #cv2.imshow('mid', mid_img)
     #cv2.imshow('right', right_img)
+    cv2.waitKey()
 
     # Figure out robot commands to send
 
