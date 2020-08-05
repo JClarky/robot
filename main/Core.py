@@ -11,8 +11,8 @@ motor_max_value = 100
 motor_min_value = 0
 pin_left_forward = 13
 pin_left_backward = 6
-pin_right_forward = 12
-pin_right_backward = 5
+pin_right_forward = 5
+pin_right_backward = 12
 GPIO.setup(pin_left_forward, GPIO.OUT)
 GPIO.setup(pin_left_backward, GPIO.OUT)
 GPIO.setup(pin_right_forward, GPIO.OUT)
