@@ -75,7 +75,6 @@ def image():
                     middle = True
                 else:
                     right = True
-                cv2.imshow(str(f), i)
             else:
                 pass
         except:

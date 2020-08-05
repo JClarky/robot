@@ -67,6 +67,7 @@ def move(l, r):
         rpf.ChangeDutyCycle(0)
         rpb.ChangeDutyCycle(0)
 
+
 def led_on():
     global led_pin
     GPIO.output(led_pin, 1)
@@ -76,9 +77,9 @@ def led_off():
     GPIO.output(led_pin, 0)
 
 def left_turn():
-    move(-100, 100)
+    move(0, 100)
     time.sleep(1)
 
 def right_turn():
-    move(100, -100)
+    move(100, 0)
     time.sleep(1)
