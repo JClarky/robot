@@ -21,8 +21,8 @@ def image():
     turning_margin = 10 # How far the line has to be from the center for it to adjust
     # Image Setup
     ret, img = cap.read()
-    # img = cv2.flip(img, 0) # vert
-    # img = cv2.flip(img, 1) # horz
+    img = cv2.flip(img, 0) # vert
+    img = cv2.flip(img, 1) # horz
 
     # Height , width
     img = img[0:200, 100:540]
