@@ -76,6 +76,7 @@ def image():
                     middle = True
                 else:
                     right = True
+                cv2.imshow(str(f), i)
             else:
                 pass
         except:
@@ -90,8 +91,6 @@ def image():
     #cv2.imshow('mid', mid_img)
     #cv2.imshow('right', right_img)
 
-    for g in temp:
-        cv2.imshow('right', h)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         pass
 
