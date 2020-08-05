@@ -52,8 +52,8 @@ def move_calc():
         last_val = raw_speed_value
     raw_speed_value = -raw_speed_value # Change polarity of raw_speed_value
     # Scale joystick values to motor values
-    speed_value = motor_max_value*(raw_speed_value/joystick_max_value)
-    turn_value = motor_max_value*(raw_turn_value/joystick_max_value)
+    speed_value = Core.motor_max_value*(raw_speed_value/joystick_max_value)
+    turn_value = Core.motor_max_value*(raw_turn_value/joystick_max_value)
 
     left_speed = speed_value # Set left motor speed variable
     right_speed = speed_value # Set right motor speed variable
