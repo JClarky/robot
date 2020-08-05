@@ -114,35 +114,35 @@ def image():
         except:
             print("failure")'''
 
-        # Captured images in frames
-        #cv2.imshow('raw_video', img)
-        #cv2.imshow('gray_scale', gray)
-        #cv2.imshow('threshold', threshold)
-        cv2.imshow('left', left_img)
-        cv2.imshow('mid', mid_img)
-        cv2.imshow('right', right_img)
+    # Captured images in frames
+    cv2.imshow('raw_video', img)
+    #cv2.imshow('gray_scale', gray)
+    #cv2.imshow('threshold', threshold)
+    #cv2.imshow('left', left_img)
+    #cv2.imshow('mid', mid_img)
+    #cv2.imshow('right', right_img)
 
-        # Figure out robot commands to send
+    # Figure out robot commands to send
 
-        if left:
-            # left turn 90 degrees
-            return('left')
-        elif middle:
-            # go straight/asjust straight angle
-            center_pixel = img_width/4 # Find center x pixel
-            print(forward_line)
-            if forward_line > center_pixel:
-                if forward_line-center_pixel > turning_margin:
-                    return('slight_right')
-            else:
-                if center_pixel-forward_line > turning_margin:
-                    return('slight_left')
-        elif right:
-            # turn right
-            return('right')
+    if left:
+        # left turn 90 degrees
+        return('left')
+    elif middle:
+        # go straight/asjust straight angle
+        center_pixel = img_width/4 # Find center x pixel
+        print(forward_line)
+        if forward_line > center_pixel:
+            if forward_line-center_pixel > turning_margin:
+                return('slight_right')
         else:
-            # no line :^(
-            return("no")
+            if center_pixel-forward_line > turning_margin:
+                return('slight_left')
+    elif right:
+        # turn right
+        return('right')
+    else:
+        # no line :^(
+        return("no")
 
 
 ###########
