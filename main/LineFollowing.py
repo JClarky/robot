@@ -45,7 +45,6 @@ def image():
     right = False
 
     # Lines for split images
-    temp = []
     for f in range(0, 3):
         i = img_split[f]
         # Add gray scale effect
@@ -81,10 +80,33 @@ def image():
                 pass
         except:
             print("failure")
-            temp.append(i)
+
+    # Add gray scale effect
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Add blur effect
+    blurred = cv2.GaussianBlur(gray, (9, 9), 0)
+    # Add threshold effect
+    rt, threshold = cv2.threshold(blurred, gray_threshold_min, gray_threshold_max, cv2.THRESH_BINARY_INV)
+    # Detect lines of the image
+    contours, hierarchy = cv2.findContours(threshold.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+    try:
+        # If there are any lines
+        if len(contours) > 0:
+            c = max(contours, key=cv2.contourArea) # Find contour with biggest area
+            M = cv2.moments(c) # Center of that contour
+            cx = int(M['m10'] / M['m00']) # X coordiantes contour
+            cy = int(M['m01'] / M['m00']) # Y coordiantes contour
+            cv2.line(img, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
+            cv2.line(img, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
+            cv2.drawContours(img, contours, -1, (0, 255, 0), 1) # Draw the lines
+        else:
+            return('no')
+    except:
+        print("failure")
 
     # Captured images in frames
-    #cv2.imshow('raw_video', img)
+    cv2.imshow('raw_video', img)
     #cv2.imshow('gray_scale', gray)
     #cv2.imshow('threshold', threshold)
     #cv2.imshow('left', left_img)
