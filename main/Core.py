@@ -78,8 +78,8 @@ def led_off():
 
 def left_turn():
     move(0, 100)
-    time.sleep(1)
+    time.sleep(0.5)
 
 def right_turn():
     move(100, 0)
-    time.sleep(1)
+    time.sleep(0.5)
