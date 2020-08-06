@@ -26,7 +26,7 @@ def image():
     img = cv2.flip(img, 1) # horz
 
     # Height , width
-    img = img[50:150, 100:380]
+    img = img[150:300, 150:490]
     img_width = img.shape[1]
     img_height = img.shape[0]
 
@@ -68,7 +68,7 @@ def image():
                 cv2.line(i, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
                 cv2.drawContours(i, contours, -1, (0, 255, 0), 1) # Draw the lines
                 print(cx)
-                if f == 0:
+                if f == 0 and cy < img_height/2+20 and cy > img_height/2-20:
                     left = True
                 elif f == 1:
                     forward_line = cx
