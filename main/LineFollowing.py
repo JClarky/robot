@@ -26,7 +26,7 @@ def image():
     img = cv2.flip(img, 1) # horz
 
     # Height , width
-    img = img[0:200, 100:540]
+    img = img[0:100, 50:400]
     img_width = img.shape[1]
     img_height = img.shape[0]
 
