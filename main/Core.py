@@ -38,14 +38,14 @@ def move(l, r):
     global threshold
     global lpf, lpb, rpf, rpb
     r = r - 10
-    if l < threshold and l > 0:
+    '''if l < threshold and l > 0:
         l = 0
     elif l > threshold and l < 0:
         l = 0
     if r < threshold and r > 0:
         r = 0
     elif r > threshold and r < 0:
-        r = 0
+        r = 0'''
 
     if l > 0:
         lpb.ChangeDutyCycle(0)
