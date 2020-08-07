@@ -49,11 +49,11 @@ def move(l, r):
         r = 0'''
     if r > 100:
         r = 100
-    elif r < 0:
+    elif r < -100:
         r = 0
     if l > 100:
         l = 100
-    elif l < 0:
+    elif l < -100:
         l = 0
 
     try:
