@@ -116,7 +116,7 @@ def image():
                 # no line :^(
                 return("no", 0, 0)
         else:
-            return('no')
+            return('no', 0 ,0)
     except:
         print("failure")
 
