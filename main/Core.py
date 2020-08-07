@@ -47,26 +47,29 @@ def move(l, r):
     elif r > threshold and r < 0:
         r = 0'''
 
-    if l > 0:
-        lpb.ChangeDutyCycle(0)
-        lpf.ChangeDutyCycle(l)
-    elif l < 0:
-        l = -l
-        lpf.ChangeDutyCycle(0)
-        lpb.ChangeDutyCycle(l)
-    else:
-        lpf.ChangeDutyCycle(0)
-        lpb.ChangeDutyCycle(0)
-    if r > 0:
-        rpb.ChangeDutyCycle(0)
-        rpf.ChangeDutyCycle(r)
-    elif r < 0:
-        r = -r
-        rpf.ChangeDutyCycle(0)
-        rpb.ChangeDutyCycle(r)
-    else:
-        rpf.ChangeDutyCycle(0)
-        rpb.ChangeDutyCycle(0)
+    try:
+        if l > 0:
+            lpb.ChangeDutyCycle(0)
+            lpf.ChangeDutyCycle(l)
+        elif l < 0:
+            l = -l
+            lpf.ChangeDutyCycle(0)
+            lpb.ChangeDutyCycle(l)
+        else:
+            lpf.ChangeDutyCycle(0)
+            lpb.ChangeDutyCycle(0)
+        if r > 0:
+            rpb.ChangeDutyCycle(0)
+            rpf.ChangeDutyCycle(r)
+        elif r < 0:
+            r = -r
+            rpf.ChangeDutyCycle(0)
+            rpb.ChangeDutyCycle(r)
+        else:
+            rpf.ChangeDutyCycle(0)
+            rpb.ChangeDutyCycle(0)
+    except ValueError:
+        print("VALUE ERROR L:"+str(l)+" R:"+str(r))
 
 
 def led_on():
