@@ -146,7 +146,8 @@ Core.move(50, 50)
 
 while True:
     time.sleep(0.3)
-    command, l, r = image()
+    Core.move(100, 100)
+    '''command, l, r = image()
     if command == 'left':
         print('left')
         Core.move(l, r)
@@ -158,4 +159,4 @@ while True:
         Core.move(100, -50)
     else:
         print('straight')
-        Core.move(80, 65)
+        Core.move(80, 65)'''

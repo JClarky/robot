@@ -35,6 +35,7 @@ GPIO.output(led_pin, 0)
 threshold = 10
 
 def move(l, r):
+    print(l,r)
     global threshold
     global lpf, lpb, rpf, rpb
     if l < threshold and l > 0:
