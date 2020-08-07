@@ -50,11 +50,13 @@ def move(l, r):
     if r > 100:
         r = 100
     elif r < -100:
-        r = 0
+        r = -100
     if l > 100:
         l = 100
     elif l < -100:
-        l = 0
+        l = -100
+        
+    print(l,r)
 
     try:
         if l > 0:

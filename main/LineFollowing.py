@@ -155,7 +155,7 @@ while True:
         Core.move(l, r)
     elif command == 'no':
         print("Find line")
-        Core.move(100, -100)
+        Core.move(100, 0)
     else:
         print('straight')
         Core.move(80, 65)
