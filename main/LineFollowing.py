@@ -9,6 +9,8 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
+last_command = ""
+
 def image():
     global cap
 
@@ -145,7 +147,7 @@ Core.run = False
 Core.move(50, 50)
 
 while True:
-    time.sleep(0.3)
+    #time.sleep(0.1)
     command, l, r = image()
     if command == 'left':
         print('left')
@@ -154,8 +156,12 @@ while True:
         print('right')
         Core.move(l, r)
     elif command == 'no':
+        if last_command == 'left':
+            Core.move(0, 100)
+            command = 'left'
         print("Find line")
         Core.move(100, 0)
     else:
         print('straight')
         Core.move(80, 65)
+    last_command = command
