@@ -70,7 +70,7 @@ def image():
                 cv2.line(i, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
                 cv2.drawContours(i, contours, -1, (0, 255, 0), 1) # Draw the lines
                 print(cx)
-                if f == 0 and cy < img_height/2+20 and cy > img_height/2-20:
+                if f == 0: #and cy < img_height/2+20 and cy > img_height/2-20:
                     left = True
                 elif f == 1:
                     forward_line = cx
