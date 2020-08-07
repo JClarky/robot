@@ -99,7 +99,15 @@ def image():
             cv2.line(img, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
             cv2.line(img, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
             cv2.drawContours(img, contours, -1, (0, 255, 0), 1) # Draw the lines
+            cv2.imshow('raw_video', img)
+            #cv2.imshow('gray_scale', gray)
+            #cv2.imshow('threshold', threshold)
+            #cv2.imshow('left', left_img)
+            #cv2.imshow('mid', mid_img)
+            #cv2.imshow('right', right_img)
 
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                pass
             if left:
                 # left turn 90 degrees
                 l = 1 - (cx/(img_width/2)) *2
@@ -121,15 +129,7 @@ def image():
         print("failure")
 
     # Captured images in frames
-    cv2.imshow('raw_video', img)
-    #cv2.imshow('gray_scale', gray)
-    #cv2.imshow('threshold', threshold)
-    #cv2.imshow('left', left_img)
-    #cv2.imshow('mid', mid_img)
-    #cv2.imshow('right', right_img)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        pass
 
     # Figure out robot commands to send
 
