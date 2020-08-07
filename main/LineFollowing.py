@@ -99,6 +99,22 @@ def image():
             cv2.line(img, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
             cv2.line(img, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
             cv2.drawContours(img, contours, -1, (0, 255, 0), 1) # Draw the lines
+
+            if left:
+                # left turn 90 degrees
+                l = 1 - (cx/(img_width/2)) *2
+                return('left', l, 100)
+            elif middle:
+                # go straight/asjust straight angle
+                return("straight", 100, 100)
+            elif right:
+                # turn right
+                cx =  img_width/2 - (cx - img_width/2 )
+                r = 1 - (cx/(img_width/2)) *2
+                return('right', 100, r)
+            else:
+                # no line :^(
+                return("no", 0, 0)
         else:
             return('no')
     except:
@@ -117,26 +133,7 @@ def image():
 
     # Figure out robot commands to send
 
-    if left:
-        # left turn 90 degrees
-        print("here at left turn")
-        return('left')
-    elif middle:
-        # go straight/asjust straight angle
-        center_pixel = img_width/4 # Find center x pixel
-        print(forward_line)
-        if forward_line > center_pixel:
-            if forward_line-center_pixel > turning_margin:
-                return('slight_right')
-        else:
-            if center_pixel-forward_line > turning_margin:
-                return('slight_left')
-    elif right:
-        # turn right
-        return('right')
-    else:
-        # no line :^(
-        return("no")
+
 
 
 ###########
@@ -149,22 +146,16 @@ Core.move(50, 50)
 
 while True:
     time.sleep(0.3)
-    command = image()
+    command, l, r = image()
     if command == 'left':
         print('left')
-        Core.left_turn()
+        Core.move(l, r)
     elif command == 'right':
         print('right')
-        Core.right_turn()
-    elif command == 'slight_left':
-        print('slight left')
-        Core.move(50, 100)
-    elif command == 'slight_right':
-        print('slight right')
-        Core.move(100, 50)
+        Core.move(l, r)
     elif command == 'no':
         print("Find line")
-        Core.move(100,-80)
+        Core.move(100, -50)
     else:
         print('straight')
         Core.move(80, 65)
