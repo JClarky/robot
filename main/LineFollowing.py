@@ -46,6 +46,10 @@ def image():
     middle = False
     right = False
 
+    ##################
+    ### MAKE TURN DECISION
+    ##################
+
     # Lines for split images
     for f in range(0, 3):
         i = img_split[f]
@@ -69,13 +73,13 @@ def image():
                 cv2.line(i, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
                 cv2.line(i, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
                 cv2.drawContours(i, contours, -1, (0, 255, 0), 1) # Draw the lines
-                print(cx)
-                if f == 0: #and cy < img_height/2+20 and cy > img_height/2-20:
+
+                if f == 0: # If left image
                     left = True
-                elif f == 1:
+                elif f == 1: # If middle image
                     forward_line = cx
                     middle = True
-                else:
+                else: # If right image
                     right = True
             else:
                 pass
@@ -90,6 +94,10 @@ def image():
     rt, threshold = cv2.threshold(blurred, gray_threshold_min, gray_threshold_max, cv2.THRESH_BINARY_INV)
     # Detect lines of the image
     contours, hierarchy = cv2.findContours(threshold.copy(), 1, cv2.CHAIN_APPROX_NONE)
+
+    ##############
+    ### WHOLE IMAGE
+    ##############
 
     try:
         # If there are any lines
@@ -108,34 +116,33 @@ def image():
             #cv2.imshow('mid', mid_img)
             #cv2.imshow('right', right_img)
 
+            # NOW DO A CHECK ON WHAT LINE DECISON WAS MADE
+
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 pass
-            if left:
-                # left turn 90 degrees
-                l = 1 - (cx/(img_width/2)) *2
-                return('left', l, 100)
-            elif middle:
-                # go straight/asjust straight angle
-                return("straight", 100, 100)
-            elif right:
-                # turn right
-                cx =  img_width/2 - (cx - img_width/2 )
-                r = 1 - (cx/(img_width/2)) *2
-                return('right', 100, r)
-            else:
-                # no line :^(
+
+            if left: # Left turn 90 degrees
+                return('left', 10, 100)
+            elif middle: # Straight
+                # Follow straight line
+                if forward_line > img_width/2: # Right of centre
+                    cx =  img_width/2 - (cx - img_width/2 )
+                    r = 1 - (cx/(img_width/2)) *2
+                    return('right', 100, r)
+                elif forward_line < img_width/2: # Left of centre
+                    l = 1 - (cx/(img_width/2)) *2
+                    return('left', l, 100)
+                else:
+                    return("straight", 100, 100)
+            elif right: # Right turn 90 degrees
+                # Turn right
+                return('right', 100, 10)
+            else: # No line :^(
                 return("no", 0, 0)
         else:
             return('no', 0 ,0)
     except:
         print("failure")
-
-    # Captured images in frames
-
-
-    # Figure out robot commands to send
-
-
 
 
 ###########
@@ -147,7 +154,6 @@ Core.run = False
 Core.move(50, 50)
 
 while True:
-    #time.sleep(0.1)
     command, l, r = image()
     if command == 'left':
         print('left')
