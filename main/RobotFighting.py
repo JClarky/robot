@@ -56,8 +56,6 @@ def main():
 
                 tracker.init(frame, initBB) # Track using supplied bounding box coordinates
 
-        elif key == ord("q"): # if the `q` key was pressed, break from the loop
-                break
 
 vs.stop()
 cv2.destroyAllWindows()
