@@ -24,6 +24,7 @@ dpadX = 16
 home = 316
 
 def button(event):
+    global mode
     if event.code == yBtn:
         print("Y")
     elif event.code == bBtn:
