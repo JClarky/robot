@@ -153,7 +153,7 @@ def image():
 Core.run = False
 Core.move(50, 50)
 
-while True:
+def main():
     command, l, r = image()
     if command == 'left':
         print('left')

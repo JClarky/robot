@@ -7,13 +7,13 @@ tracker = cv2.TrackerKCF_create()
 # initialize the FPS throughput estimator
 fps = None
 vs = VideoStream(src=0).start()
-initBB = None # 4 Part tuple that is (x, y, width, height) 
+initBB = None # 4 Part tuple that is (x, y, width, height)
 objX = None # X value of the object
 
 turning_threhold = 20
 
 # loop over frames from the video stream
-while True:
+def main():
         # Read video stream frame
         frame = vs.read()
 
@@ -43,7 +43,7 @@ while True:
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
 
-        if key == ord("s"): # If the 's' key is selected, we are going to "select" a bounding box to track      
+        if key == ord("s"): # If the 's' key is selected, we are going to "select" a bounding box to track
                 # select the bounding box of the object we want to track
                 #initBB = cv2.selectROI("Frame", frame, fromCenter=False, showCrosshair=True)
                 x_center = 250
@@ -53,9 +53,9 @@ while True:
                 x =  x_center - width/2
                 y = y_center - height/2
                 initBB = (x, y, width, height)
-                
+
                 tracker.init(frame, initBB) # Track using supplied bounding box coordinates
-                
+
         elif key == ord("q"): # if the `q` key was pressed, break from the loop
                 break
 
