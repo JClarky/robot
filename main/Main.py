@@ -1,4 +1,4 @@
-import linefollowing, manual, robotfighting, core
+import LineFollowing, Manual, RobotFighting, Core
 from evdev import InputDevice, categorize, ecodes
 
 controller = None
