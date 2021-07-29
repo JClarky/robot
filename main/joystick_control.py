@@ -114,7 +114,7 @@ def move_calc():
     Core.move(left_speed, right_speed)
 
 def joystick(event):
-    global raw_speed_value, raw_turn_value
+    global raw_left_speed, raw_right_speed
     if event.code == 0: # X axis on left joystick
         pass
     elif event.code == 1: # Y axis on left joystick
@@ -139,6 +139,7 @@ while run:
                     button(event) # Handle button press
             if event.type == 3 and mode == 0: # If event was joystick
                 print("joystick")
+                print(event)
                 joystick(event) # Handle joystick input
     except OSError: # If controller disconnected
         print("Controller disconnected")
