@@ -100,7 +100,7 @@ def map(x, min_value, max_value, min_range, max_range):
     return (max_range-min_range)*((x - min_value) / (max_value - min_value))+min_range
 
 def move_calc():
-    global left_speed, right_speed
+    global left_speed, right_speed,raw_left_speed,raw_right_speed
     """if(last_val != 0 and last_val+raw_speed_value == 0): # Filter out sudden polarity changes
         raw_speed_value = last_val
     else:

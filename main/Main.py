@@ -89,6 +89,7 @@ while run:
                 if event.value == 1: # If button was pressed(not released)
                     button(event) # Handle button press
             if event.type == 3 and mode == 0: # If event was joystick
+                print("event joy")
                 Manual.joystick(event) # Handle joystick input
     except OSError: # If controller disconnected
         print("Controller disconnected")
