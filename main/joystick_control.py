@@ -133,10 +133,12 @@ run = True
 while run:
     try: # If controller disconnects catch error
         for event in controller.read_loop(): # For each button/joystick event
+            print("event")
             if event.type == ecodes.EV_KEY: # If event was button
                 if event.value == 1: # If button was pressed(not released)
                     button(event) # Handle button press
             if event.type == 3 and mode == 0: # If event was joystick
+                print("joystick")
                 joystick(event) # Handle joystick input
     except OSError: # If controller disconnected
         print("Controller disconnected")
