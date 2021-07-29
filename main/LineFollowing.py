@@ -5,7 +5,9 @@ import time
 import Core
 
 # Configure camera capture
+print("hi")
 cap = cv2.VideoCapture(0)
+print("tes")
 cap.set(3, 640)
 cap.set(4, 480)
 
@@ -28,7 +30,7 @@ def image():
     img = cv2.flip(img, 1) # horz
 
     # Height , width
-    img = img[150:300, 150:490]
+    img = img[140:350, 130:510]
     img_width = img.shape[1]
     img_height = img.shape[0]
 
@@ -73,13 +75,14 @@ def image():
                 cv2.line(i, (cx, 0), (cx, 720), (255, 0, 0), 1) # Create line around x axis of contour
                 cv2.line(i, (0, cy), (1280, cy), (255, 0, 0), 1) # Create line around y axis of contour
                 cv2.drawContours(i, contours, -1, (0, 255, 0), 1) # Draw the lines
-
-                if f == 0: # If left image
+                if f == 0: #and cy > img_height/2: # If left image
+                    print("left")
                     left = True
                 elif f == 1: # If middle image
                     forward_line = cx
                     middle = True
-                else: # If right image
+                else:#if cy > img_height/2: # If right image
+                    print("right")
                     right = True
             else:
                 pass
@@ -112,25 +115,28 @@ def image():
             cv2.imshow('raw_video', img)
             #cv2.imshow('gray_scale', gray)
             #cv2.imshow('threshold', threshold)
-            #cv2.imshow('left', left_img)
-            #cv2.imshow('mid', mid_img)
-            #cv2.imshow('right', right_img)
+            cv2.imshow('left', left_img)
+            cv2.imshow('mid', mid_img)
+            cv2.imshow('right', right_img)
 
             # NOW DO A CHECK ON WHAT LINE DECISON WAS MADE
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 pass
 
+            print(left, middle, right)
+
             if left: # Left turn 90 degrees
                 return('left', 10, 100)
             elif middle: # Straight
                 # Follow straight line
                 if forward_line > img_width/2: # Right of centre
-                    cx =  img_width/2 - (cx - img_width/2 )
-                    r = 1 - (cx/(img_width/2)) *2
+                    cx =  cx - img_width/2
+                    r = (cx/(img_width/2)) * 100
                     return('right', 100, r)
                 elif forward_line < img_width/2: # Left of centre
-                    l = 1 - (cx/(img_width/2)) *2
+                    l = (cx/(img_width/2)) * 100
+                    print("cx:",cx)
                     return('left', l, 100)
                 else:
                     return("straight", 100, 100)
@@ -151,23 +157,26 @@ def image():
 ###########
 ###########
 Core.run = False
+print("true")
 Core.move(50, 50)
 
-def main():
+#def main():
+while True:
+    #try:
     command, l, r = image()
     if command == 'left':
-        print('left')
         Core.move(l, r)
     elif command == 'right':
-        print('right')
         Core.move(l, r)
     elif command == 'no':
-        if last_command == 'left':
-            Core.move(0, 100)
-            command = 'left'
+        #if last_command == 'left':
+        #    Core.move(0, 100)
+        #    command = 'left'
+        #else:
         print("Find line")
-        Core.move(100, 0)
+        Core.move(100, -100)
     else:
-        print('straight')
         Core.move(80, 65)
     last_command = command
+    #except:
+    #    pass

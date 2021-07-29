@@ -37,7 +37,7 @@ threshold = 10
 def move(l, r):
     global threshold
     global lpf, lpb, rpf, rpb
-    print(l,r)
+    print("before chnages",l,r)
     r = r - 10
     '''if l < threshold and l > 0:
         l = 0
@@ -55,8 +55,8 @@ def move(l, r):
         l = 100
     elif l < -100:
         l = -100
-        
-    print(l,r)
+
+    print("after chnages",l,r)
 
     try:
         if l > 0:
